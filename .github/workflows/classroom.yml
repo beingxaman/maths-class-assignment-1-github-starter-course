@@ -1,4 +1,4 @@
-name: Autograding Tests
+name: <h1>Autograding Tests
 'on':
 - workflow_dispatch
 - repository_dispatch
