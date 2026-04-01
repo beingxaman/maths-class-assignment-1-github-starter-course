@@ -1,0 +1,32 @@
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: "<h1>github-starter-course"
+      id: h1-github-starter-course
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: "<h1>github-starter-course"
+        setup-command: ''
+        command: "./aman<h1>test"
+        input: 1+1
+        expected-output: "<h1>test"
+        comparison-method: contains
+        timeout: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        H1-GITHUB-STARTER-COURSE_RESULTS: "${{steps.h1-github-starter-course.outputs.result}}"
+      with:
+        runners: h1-github-starter-course
